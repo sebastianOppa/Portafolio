@@ -1,0 +1,8 @@
+C:\Users\CETECOM\Desktop\portafolio\SolucionFukusuke\CLASES\bin\Debug\CLASES.dll
+C:\Users\CETECOM\Desktop\portafolio\SolucionFukusuke\CLASES\bin\Debug\CLASES.pdb
+C:\Users\CETECOM\Desktop\portafolio\SolucionFukusuke\CLASES\bin\Debug\BD.dll
+C:\Users\CETECOM\Desktop\portafolio\SolucionFukusuke\CLASES\bin\Debug\EntityFramework.dll
+C:\Users\CETECOM\Desktop\portafolio\SolucionFukusuke\CLASES\bin\Debug\BD.pdb
+C:\Users\CETECOM\Desktop\portafolio\SolucionFukusuke\CLASES\obj\Debug\CLASES.csprojResolveAssemblyReference.cache
+C:\Users\CETECOM\Desktop\portafolio\SolucionFukusuke\CLASES\obj\Debug\CLASES.dll
+C:\Users\CETECOM\Desktop\portafolio\SolucionFukusuke\CLASES\obj\Debug\CLASES.pdb

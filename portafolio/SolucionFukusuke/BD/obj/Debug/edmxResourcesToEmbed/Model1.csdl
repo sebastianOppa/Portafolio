@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BOLETA">
+    <Key>
+      <PropertyRef Name="ID_BOLETA" />
+    </Key>
+    <Property Name="ID_BOLETA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="DESCUENTOS" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="TOTAL_FINAL" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="TIPO_PAGO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PROPINA" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="PEDIDO_ID_PEDIDO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="DESPACHO_ID_DESPACHO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <NavigationProperty Name="DESPACHO" Relationship="Self.BOLETA_DESPACHO_FK" FromRole="BOLETA" ToRole="DESPACHO" />
+    <NavigationProperty Name="PEDIDO" Relationship="Self.BOLETA_PEDIDO_FK" FromRole="BOLETA" ToRole="PEDIDO" />
+    <NavigationProperty Name="DESPACHO1" Relationship="Self.DESPACHO_BOLETA_FK" FromRole="BOLETA" ToRole="DESPACHO" />
+    <NavigationProperty Name="PEDIDO1" Relationship="Self.PEDIDO_BOLETA_FK" FromRole="BOLETA" ToRole="PEDIDO" />
+  </EntityType>
+  <EntityType Name="CIUDAD">
+    <Key>
+      <PropertyRef Name="ID_CIUDAD" />
+      <PropertyRef Name="PROVINCIA_ID_PROVINCIA" />
+    </Key>
+    <Property Name="ID_CIUDAD" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="NOMBRE_CIU" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PROVINCIA_ID_PROVINCIA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <NavigationProperty Name="PROVINCIA" Relationship="Self.CIUDAD_PROVINCIA_FK" FromRole="CIUDAD" ToRole="PROVINCIA" />
+    <NavigationProperty Name="COMUNA" Relationship="Self.COMUNA_CIUDAD_FK" FromRole="CIUDAD" ToRole="COMUNA" />
+  </EntityType>
+  <EntityType Name="CLIENTE">
+    <Key>
+      <PropertyRef Name="RUN" />
+    </Key>
+    <Property Name="RUN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DIRECCION2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="VALIDADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="PERSONA" Relationship="Self.CLIENTE_PERSONA_FK" FromRole="CLIENTE" ToRole="PERSONA" />
+    <NavigationProperty Name="PEDIDO" Relationship="Self.PEDIDO_CLIENTE_FK" FromRole="CLIENTE" ToRole="PEDIDO" />
+  </EntityType>
+  <EntityType Name="COMUNA">
+    <Key>
+      <PropertyRef Name="ID_COMUNA" />
+      <PropertyRef Name="PERSONA_RUN" />
+    </Key>
+    <Property Name="ID_COMUNA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="NOMBRE_COM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PERSONA_RUN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CIUDAD_ID_CIUDAD" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="CIUDAD_ID_PROVINCIA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <NavigationProperty Name="CIUDAD" Relationship="Self.COMUNA_CIUDAD_FK" FromRole="COMUNA" ToRole="CIUDAD" />
+    <NavigationProperty Name="PERSONA" Relationship="Self.COMUNA_PERSONA_FK" FromRole="COMUNA" ToRole="PERSONA" />
+  </EntityType>
+  <EntityType Name="DESPACHO">
+    <Key>
+      <PropertyRef Name="ID_DESPACHO" />
+    </Key>
+    <Property Name="ID_DESPACHO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="FORMA_PAGO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OBSERVACIONES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BOLETA_ID_BOLETA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <NavigationProperty Name="BOLETA" Relationship="Self.BOLETA_DESPACHO_FK" FromRole="DESPACHO" ToRole="BOLETA" />
+    <NavigationProperty Name="BOLETA1" Relationship="Self.DESPACHO_BOLETA_FK" FromRole="DESPACHO" ToRole="BOLETA" />
+  </EntityType>
+  <EntityType Name="DETALLE_PEDIDO">
+    <Key>
+      <PropertyRef Name="ID_DETALLE" />
+    </Key>
+    <Property Name="DETALLE_PRODUCTO" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DETALLE_CANTIDAD" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="DETALLE_TOTAL" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="ID_DETALLE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="ID_PRODUCTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="PEDIDO_ID_PEDIDO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <NavigationProperty Name="PEDIDO" Relationship="Self.DETALLE_PEDIDO_PEDIDO_FK" FromRole="DETALLE_PEDIDO" ToRole="PEDIDO" />
+  </EntityType>
+  <EntityType Name="FUNCIONARIO">
+    <Key>
+      <PropertyRef Name="RUN" />
+    </Key>
+    <Property Name="RUN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CARGO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FEC_CONTRATO" Type="DateTime" Nullable="false" />
+    <Property Name="SUELDO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <NavigationProperty Name="PERSONA" Relationship="Self.FUNCIONARIO_PERSONA_FK" FromRole="FUNCIONARIO" ToRole="PERSONA" />
+    <NavigationProperty Name="PEDIDO" Relationship="Self.PEDIDO_FUNCIONARIO_FK" FromRole="FUNCIONARIO" ToRole="PEDIDO" />
+  </EntityType>
+  <EntityType Name="MENU">
+    <Key>
+      <PropertyRef Name="ID_MENU" />
+    </Key>
+    <Property Name="ID_MENU" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="PRODUCTO1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRODUCTO2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRODUCTO3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRODUCTO4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRODUCTO5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="VALOR" Type="Decimal" Precision="38" Scale="0" />
+    <NavigationProperty Name="PEDIDO" Relationship="Self.PEDIDO_MENU_FK" FromRole="MENU" ToRole="PEDIDO" />
+    <NavigationProperty Name="PRODUCTO" Relationship="Self.PRODUCTO_MENU_FK" FromRole="MENU" ToRole="PRODUCTO" />
+  </EntityType>
+  <EntityType Name="PEDIDO">
+    <Key>
+      <PropertyRef Name="ID_PEDIDO" />
+    </Key>
+    <Property Name="ID_PEDIDO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="CLIENTE_RUN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NUM_MESA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TOTAL_COMPRA" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="ANULADO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRODUCTO_ID_PRODUCTO" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="BOLETA_ID_BOLETA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="PRODUCTO_ID_MENU" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="FUNCIONARIO_RUN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="MENU_ID_MENU" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="DETALLE_PEDIDO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="BOLETA" Relationship="Self.BOLETA_PEDIDO_FK" FromRole="PEDIDO" ToRole="BOLETA" />
+    <NavigationProperty Name="BOLETA1" Relationship="Self.PEDIDO_BOLETA_FK" FromRole="PEDIDO" ToRole="BOLETA" />
+    <NavigationProperty Name="CLIENTE" Relationship="Self.PEDIDO_CLIENTE_FK" FromRole="PEDIDO" ToRole="CLIENTE" />
+    <NavigationProperty Name="DETALLE_PEDIDO1" Relationship="Self.DETALLE_PEDIDO_PEDIDO_FK" FromRole="PEDIDO" ToRole="DETALLE_PEDIDO" />
+    <NavigationProperty Name="FUNCIONARIO" Relationship="Self.PEDIDO_FUNCIONARIO_FK" FromRole="PEDIDO" ToRole="FUNCIONARIO" />
+    <NavigationProperty Name="MENU" Relationship="Self.PEDIDO_MENU_FK" FromRole="PEDIDO" ToRole="MENU" />
+    <NavigationProperty Name="PRODUCTO" Relationship="Self.PEDIDO_PRODUCTO_FK" FromRole="PEDIDO" ToRole="PRODUCTO" />
+  </EntityType>
+  <EntityType Name="PERSONA">
+    <Key>
+      <PropertyRef Name="RUN" />
+    </Key>
+    <Property Name="RUN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FULLNAME" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DIRECCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FEC_NAC" Type="DateTime" Nullable="false" />
+    <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TELEFONO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="CONTRASENA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NIV_ACCESO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="GENERO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CLIENTE" Relationship="Self.CLIENTE_PERSONA_FK" FromRole="PERSONA" ToRole="CLIENTE" />
+    <NavigationProperty Name="COMUNA" Relationship="Self.COMUNA_PERSONA_FK" FromRole="PERSONA" ToRole="COMUNA" />
+    <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FUNCIONARIO_PERSONA_FK" FromRole="PERSONA" ToRole="FUNCIONARIO" />
+  </EntityType>
+  <EntityType Name="PRODUCTO">
+    <Key>
+      <PropertyRef Name="ID_PRODUCTO" />
+      <PropertyRef Name="MENU_ID_MENU" />
+    </Key>
+    <Property Name="ID_PRODUCTO" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="NOM_PRODUCTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PRECIO" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="STOCK" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="MENU_ID_MENU" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <NavigationProperty Name="MENU" Relationship="Self.PRODUCTO_MENU_FK" FromRole="PRODUCTO" ToRole="MENU" />
+    <NavigationProperty Name="PEDIDO" Relationship="Self.PEDIDO_PRODUCTO_FK" FromRole="PRODUCTO" ToRole="PEDIDO" />
+  </EntityType>
+  <EntityType Name="PROVINCIA">
+    <Key>
+      <PropertyRef Name="ID_PROVINCIA" />
+    </Key>
+    <Property Name="ID_PROVINCIA" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="NOMBRE_PRO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CIUDAD" Relationship="Self.CIUDAD_PROVINCIA_FK" FromRole="PROVINCIA" ToRole="CIUDAD" />
+  </EntityType>
+  <Association Name="BOLETA_DESPACHO_FK">
+    <End Role="DESPACHO" Type="Self.DESPACHO" Multiplicity="1" />
+    <End Role="BOLETA" Type="Self.BOLETA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DESPACHO">
+        <PropertyRef Name="ID_DESPACHO" />
+      </Principal>
+      <Dependent Role="BOLETA">
+        <PropertyRef Name="DESPACHO_ID_DESPACHO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="BOLETA_PEDIDO_FK">
+    <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="1" />
+    <End Role="BOLETA" Type="Self.BOLETA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PEDIDO">
+        <PropertyRef Name="ID_PEDIDO" />
+      </Principal>
+      <Dependent Role="BOLETA">
+        <PropertyRef Name="PEDIDO_ID_PEDIDO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DESPACHO_BOLETA_FK">
+    <End Role="BOLETA" Type="Self.BOLETA" Multiplicity="1" />
+    <End Role="DESPACHO" Type="Self.DESPACHO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOLETA">
+        <PropertyRef Name="ID_BOLETA" />
+      </Principal>
+      <Dependent Role="DESPACHO">
+        <PropertyRef Name="BOLETA_ID_BOLETA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PEDIDO_BOLETA_FK">
+    <End Role="BOLETA" Type="Self.BOLETA" Multiplicity="1" />
+    <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BOLETA">
+        <PropertyRef Name="ID_BOLETA" />
+      </Principal>
+      <Dependent Role="PEDIDO">
+        <PropertyRef Name="BOLETA_ID_BOLETA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CIUDAD_PROVINCIA_FK">
+    <End Role="PROVINCIA" Type="Self.PROVINCIA" Multiplicity="1" />
+    <End Role="CIUDAD" Type="Self.CIUDAD" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROVINCIA">
+        <PropertyRef Name="ID_PROVINCIA" />
+      </Principal>
+      <Dependent Role="CIUDAD">
+        <PropertyRef Name="PROVINCIA_ID_PROVINCIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="COMUNA_CIUDAD_FK">
+    <End Role="CIUDAD" Type="Self.CIUDAD" Multiplicity="1" />
+    <End Role="COMUNA" Type="Self.COMUNA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CIUDAD">
+        <PropertyRef Name="ID_CIUDAD" />
+        <PropertyRef Name="PROVINCIA_ID_PROVINCIA" />
+      </Principal>
+      <Dependent Role="COMUNA">
+        <PropertyRef Name="CIUDAD_ID_CIUDAD" />
+        <PropertyRef Name="CIUDAD_ID_PROVINCIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CLIENTE_PERSONA_FK">
+    <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PERSONA">
+        <PropertyRef Name="RUN" />
+      </Principal>
+      <Dependent Role="CLIENTE">
+        <PropertyRef Name="RUN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PEDIDO_CLIENTE_FK">
+    <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+    <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTE">
+        <PropertyRef Name="RUN" />
+      </Principal>
+      <Dependent Role="PEDIDO">
+        <PropertyRef Name="CLIENTE_RUN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="COMUNA_PERSONA_FK">
+    <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
+    <End Role="COMUNA" Type="Self.COMUNA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PERSONA">
+        <PropertyRef Name="RUN" />
+      </Principal>
+      <Dependent Role="COMUNA">
+        <PropertyRef Name="PERSONA_RUN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DETALLE_PEDIDO_PEDIDO_FK">
+    <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="1" />
+    <End Role="DETALLE_PEDIDO" Type="Self.DETALLE_PEDIDO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PEDIDO">
+        <PropertyRef Name="ID_PEDIDO" />
+      </Principal>
+      <Dependent Role="DETALLE_PEDIDO">
+        <PropertyRef Name="PEDIDO_ID_PEDIDO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FUNCIONARIO_PERSONA_FK">
+    <End Role="PERSONA" Type="Self.PERSONA" Multiplicity="1" />
+    <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PERSONA">
+        <PropertyRef Name="RUN" />
+      </Principal>
+      <Dependent Role="FUNCIONARIO">
+        <PropertyRef Name="RUN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PEDIDO_FUNCIONARIO_FK">
+    <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="0..1" />
+    <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FUNCIONARIO">
+        <PropertyRef Name="RUN" />
+      </Principal>
+      <Dependent Role="PEDIDO">
+        <PropertyRef Name="FUNCIONARIO_RUN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PEDIDO_MENU_FK">
+    <End Role="MENU" Type="Self.MENU" Multiplicity="0..1" />
+    <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MENU">
+        <PropertyRef Name="ID_MENU" />
+      </Principal>
+      <Dependent Role="PEDIDO">
+        <PropertyRef Name="MENU_ID_MENU" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PRODUCTO_MENU_FK">
+    <End Role="MENU" Type="Self.MENU" Multiplicity="1" />
+    <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MENU">
+        <PropertyRef Name="ID_MENU" />
+      </Principal>
+      <Dependent Role="PRODUCTO">
+        <PropertyRef Name="MENU_ID_MENU" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PEDIDO_PRODUCTO_FK">
+    <End Role="PRODUCTO" Type="Self.PRODUCTO" Multiplicity="0..1" />
+    <End Role="PEDIDO" Type="Self.PEDIDO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PRODUCTO">
+        <PropertyRef Name="ID_PRODUCTO" />
+        <PropertyRef Name="MENU_ID_MENU" />
+      </Principal>
+      <Dependent Role="PEDIDO">
+        <PropertyRef Name="PRODUCTO_ID_PRODUCTO" />
+        <PropertyRef Name="PRODUCTO_ID_MENU" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BOLETA" EntityType="Self.BOLETA" />
+    <EntitySet Name="CIUDAD" EntityType="Self.CIUDAD" />
+    <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" />
+    <EntitySet Name="COMUNA" EntityType="Self.COMUNA" />
+    <EntitySet Name="DESPACHO" EntityType="Self.DESPACHO" />
+    <EntitySet Name="DETALLE_PEDIDO" EntityType="Self.DETALLE_PEDIDO" />
+    <EntitySet Name="FUNCIONARIO" EntityType="Self.FUNCIONARIO" />
+    <EntitySet Name="MENU" EntityType="Self.MENU" />
+    <EntitySet Name="PEDIDO" EntityType="Self.PEDIDO" />
+    <EntitySet Name="PERSONA" EntityType="Self.PERSONA" />
+    <EntitySet Name="PRODUCTO" EntityType="Self.PRODUCTO" />
+    <EntitySet Name="PROVINCIA" EntityType="Self.PROVINCIA" />
+    <AssociationSet Name="BOLETA_DESPACHO_FK" Association="Self.BOLETA_DESPACHO_FK">
+      <End Role="DESPACHO" EntitySet="DESPACHO" />
+      <End Role="BOLETA" EntitySet="BOLETA" />
+    </AssociationSet>
+    <AssociationSet Name="BOLETA_PEDIDO_FK" Association="Self.BOLETA_PEDIDO_FK">
+      <End Role="PEDIDO" EntitySet="PEDIDO" />
+      <End Role="BOLETA" EntitySet="BOLETA" />
+    </AssociationSet>
+    <AssociationSet Name="DESPACHO_BOLETA_FK" Association="Self.DESPACHO_BOLETA_FK">
+      <End Role="BOLETA" EntitySet="BOLETA" />
+      <End Role="DESPACHO" EntitySet="DESPACHO" />
+    </AssociationSet>
+    <AssociationSet Name="PEDIDO_BOLETA_FK" Association="Self.PEDIDO_BOLETA_FK">
+      <End Role="BOLETA" EntitySet="BOLETA" />
+      <End Role="PEDIDO" EntitySet="PEDIDO" />
+    </AssociationSet>
+    <AssociationSet Name="CIUDAD_PROVINCIA_FK" Association="Self.CIUDAD_PROVINCIA_FK">
+      <End Role="PROVINCIA" EntitySet="PROVINCIA" />
+      <End Role="CIUDAD" EntitySet="CIUDAD" />
+    </AssociationSet>
+    <AssociationSet Name="COMUNA_CIUDAD_FK" Association="Self.COMUNA_CIUDAD_FK">
+      <End Role="CIUDAD" EntitySet="CIUDAD" />
+      <End Role="COMUNA" EntitySet="COMUNA" />
+    </AssociationSet>
+    <AssociationSet Name="CLIENTE_PERSONA_FK" Association="Self.CLIENTE_PERSONA_FK">
+      <End Role="PERSONA" EntitySet="PERSONA" />
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+    </AssociationSet>
+    <AssociationSet Name="PEDIDO_CLIENTE_FK" Association="Self.PEDIDO_CLIENTE_FK">
+      <End Role="CLIENTE" EntitySet="CLIENTE" />
+      <End Role="PEDIDO" EntitySet="PEDIDO" />
+    </AssociationSet>
+    <AssociationSet Name="COMUNA_PERSONA_FK" Association="Self.COMUNA_PERSONA_FK">
+      <End Role="PERSONA" EntitySet="PERSONA" />
+      <End Role="COMUNA" EntitySet="COMUNA" />
+    </AssociationSet>
+    <AssociationSet Name="DETALLE_PEDIDO_PEDIDO_FK" Association="Self.DETALLE_PEDIDO_PEDIDO_FK">
+      <End Role="PEDIDO" EntitySet="PEDIDO" />
+      <End Role="DETALLE_PEDIDO" EntitySet="DETALLE_PEDIDO" />
+    </AssociationSet>
+    <AssociationSet Name="FUNCIONARIO_PERSONA_FK" Association="Self.FUNCIONARIO_PERSONA_FK">
+      <End Role="PERSONA" EntitySet="PERSONA" />
+      <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+    </AssociationSet>
+    <AssociationSet Name="PEDIDO_FUNCIONARIO_FK" Association="Self.PEDIDO_FUNCIONARIO_FK">
+      <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+      <End Role="PEDIDO" EntitySet="PEDIDO" />
+    </AssociationSet>
+    <AssociationSet Name="PEDIDO_MENU_FK" Association="Self.PEDIDO_MENU_FK">
+      <End Role="MENU" EntitySet="MENU" />
+      <End Role="PEDIDO" EntitySet="PEDIDO" />
+    </AssociationSet>
+    <AssociationSet Name="PRODUCTO_MENU_FK" Association="Self.PRODUCTO_MENU_FK">
+      <End Role="MENU" EntitySet="MENU" />
+      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+    </AssociationSet>
+    <AssociationSet Name="PEDIDO_PRODUCTO_FK" Association="Self.PEDIDO_PRODUCTO_FK">
+      <End Role="PRODUCTO" EntitySet="PRODUCTO" />
+      <End Role="PEDIDO" EntitySet="PEDIDO" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
