@@ -32,11 +32,11 @@ namespace CLASES
             this.genero = genero;
         }
 
-        private BD.PERSONA accesoAdm(string pass)
+        private BD.PERSONA AccesoPersona(string rut)
         {
             try
             {
-                return CommonBC.Modelo.PERSONA.FirstOrDefault(p => p.CONTRASENA == pass);
+                return CommonBC.Modelo.PERSONA.FirstOrDefault(p => p.RUN == rut);
             }
             catch (Exception)
             {
@@ -44,11 +44,21 @@ namespace CLASES
             }
         }
 
-        public bool AutenticarUsuario(string rut, string password)
+        public bool MantenedorMaestroPersona(string rut, string nombre, string direcion, DateTime fec_nac, string email, int telefono, string contrasena, int niv_acceso, string genero)
         {
             try
             {
-                return accesoAdm(rut).Password == password;
+                BD.PERSONA x = AccesoPersona(rut);
+                x.FULLNAME = nombre;
+                x.DIRECCION = direcion;
+                x.FEC_NAC = fec_nac;
+                x.EMAIL = email;
+                x.TELEFONO = telefono;
+                x.CONTRASENA = contrasena;
+                x.NIV_ACCESO = niv_acceso;
+                x.GENERO = genero;                
+                CommonBC.Modelo.SaveChanges();
+                return true;
             }
             catch (Exception)
             {

@@ -12,6 +12,8 @@ namespace SERVICIOS
     public interface IFukusuke
     {
         [OperationContract]
-        void DoWork();
+        bool MantenedorMaestroProducto(int id, string nombre, string descripcion, int precio, int stock);
+        [OperationContract]
+        bool MantenedorMaestroPersona(string rut, string nombre, string direcion, DateTime fec_nac, string email, int telefono, string contrasena, int niv_acceso, string genero);
     }
 }
